@@ -12,15 +12,20 @@ enum arrowkey
 
 #define TOTAL_KEYS 5
 
-void load_img_surfs(SDL_Surface* surfs[TOTAL_KEYS],char paths[TOTAL_KEYS][20])
+int load_img_surfs(SDL_Surface* surfs[TOTAL_KEYS],char paths[TOTAL_KEYS][20])
+/*loads images into surfs and returns the number of images that failed to load*/
 {
-	int i;
+	int i,ret=0;
 	for(i=0;i<TOTAL_KEYS;++i)
 	{
 		surfs[i]=SDL_LoadBMP(paths[i]);
 		if(surfs[i]==NULL)
+		{
+			ret++;
 			fprintf(stderr,"%s\n",SDL_GetError());
+		}
 	}
+	return ret;
 }
 
 int main()
@@ -50,10 +55,9 @@ int main()
 	window=SDL_CreateWindow("Title",SDL_WINDOWPOS_UNDEFINED,SDL_WINDOWPOS_UNDEFINED,256,256,SDL_WINDOW_SHOWN);
 	if(window==NULL)
 		fprintf(stderr,"%s\n",SDL_GetError());
-	else
+	else if(load_img_surfs(img_surfs,img_paths)==0)
 	{
 		win_surf = SDL_GetWindowSurface(window);
-		load_img_surfs(img_surfs,img_paths);
 		SDL_BlitSurface(img_surfs[KEY_NONE],NULL,win_surf,NULL);
 		SDL_UpdateWindowSurface(window);
 		while(quit!='y')

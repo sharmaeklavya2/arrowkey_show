@@ -12,7 +12,7 @@ enum arrowkey
 
 #define TOTAL_KEYS 5
 
-void load_img_surfs(SDL_Surface* surfs[TOTAL_KEYS],char paths[TOTAL_KEYS][10])
+void load_img_surfs(SDL_Surface* surfs[TOTAL_KEYS],char paths[TOTAL_KEYS][20])
 {
 	int i;
 	for(i=0;i<TOTAL_KEYS;++i)
@@ -29,7 +29,12 @@ int main()
 	SDL_Surface* win_surf=NULL;
 	SDL_Event e;
 	enum arrowkey pressed_key=KEY_NONE;
-	char img_paths[TOTAL_KEYS][10]={"up.bmp","down.bmp","left.bmp","right.bmp","none.bmp"};
+	char img_paths[TOTAL_KEYS][20]={
+		"images/up.bmp",
+		"images/down.bmp",
+		"images/left.bmp",
+		"images/right.bmp",
+		"images/none.bmp"};
 	SDL_Surface* img_surfs[TOTAL_KEYS]={NULL,NULL,NULL,NULL,NULL};
 	char quit='n';
 	int i=0;

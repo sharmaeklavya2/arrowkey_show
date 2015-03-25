@@ -36,9 +36,9 @@ int main()
 		"images/right.bmp",
 		"images/none.bmp"};
 	SDL_Surface* img_surfs[TOTAL_KEYS]={NULL,NULL,NULL,NULL,NULL};
+	SDL_Keycode my_keycodes[TOTAL_KEYS-1]={SDLK_UP,SDLK_DOWN,SDLK_LEFT,SDLK_RIGHT};
 	char quit='n';
 	int i=0;
-//	unsigned keycode[TOTAL_KEYS-1]={SDLK_UP,SLDK_DOWN,SLDK_LEFT,SLDK_RIGHT};
 	
 	fprintf(stdout,"%s\n","Welcome to arrow key press detector");
 	if(SDL_Init(SDL_INIT_VIDEO)<0)
@@ -63,23 +63,10 @@ int main()
 					quit='y';
 				else if(e.type==SDL_KEYDOWN)
 				{
-					SDL_Surface* to_apply=NULL;
-					switch(e.key.keysym.sym)
-					{
-					case SDLK_UP:
-						pressed_key=KEY_UP;
-						break;
-					case SDLK_DOWN:
-						pressed_key=KEY_DOWN;
-						break;
-					case SDLK_LEFT:
-						pressed_key=KEY_LEFT;
-						break;
-					case SDLK_RIGHT:
-						pressed_key=KEY_RIGHT;
-						break;
-					default:pressed_key=KEY_NONE;
-					}
+					pressed_key=KEY_NONE;
+					for(i=0;i<TOTAL_KEYS-1;++i)
+						if(e.key.keysym.sym==my_keycodes[i])
+						{pressed_key=i;break;}
 					if(pressed_key!=KEY_NONE)
 					{
 						printf("Blitting %s\n",img_paths[pressed_key]);

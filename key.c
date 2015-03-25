@@ -19,7 +19,7 @@ void load_img_surfs(SDL_Surface* surfs[TOTAL_KEYS],char paths[TOTAL_KEYS][20])
 	{
 		surfs[i]=SDL_LoadBMP(paths[i]);
 		if(surfs[i]==NULL)
-			fprintf(stdout,"E%s\n",SDL_GetError());
+			fprintf(stderr,"%s\n",SDL_GetError());
 	}
 }
 
@@ -43,13 +43,13 @@ int main()
 	fprintf(stdout,"%s\n","Welcome to arrow key press detector");
 	if(SDL_Init(SDL_INIT_VIDEO)<0)
 	{
-		fprintf(stdout,"E%s\n",SDL_GetError());
+		fprintf(stderr,"%s\n",SDL_GetError());
 		return -1;
 	}
 	
 	window=SDL_CreateWindow("Title",SDL_WINDOWPOS_UNDEFINED,SDL_WINDOWPOS_UNDEFINED,256,256,SDL_WINDOW_SHOWN);
 	if(window==NULL)
-		fprintf(stdout,"E%s\n",SDL_GetError());
+		fprintf(stderr,"%s\n",SDL_GetError());
 	else
 	{
 		win_surf = SDL_GetWindowSurface(window);
